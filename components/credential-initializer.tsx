@@ -9,8 +9,14 @@ function CredentialInitializerInner({ children }: { children: React.ReactNode })
   const personalToken = searchParams.get("personal_token");
 
   useEffect(() => {
-    if (hpKey) localStorage.setItem("heroui_hp_key", hpKey);
-    if (personalToken) localStorage.setItem("heroui_personal_token", personalToken);
+    if (hpKey) {
+      localStorage.setItem("heroui_hp_key", hpKey);
+      window.dispatchEvent(new StorageEvent("storage", { key: "heroui_hp_key" }));
+    }
+    if (personalToken) {
+      localStorage.setItem("heroui_personal_token", personalToken);
+      window.dispatchEvent(new StorageEvent("storage", { key: "heroui_personal_token" }));
+    }
 
     if (hpKey || personalToken) {
       const url = new URL(window.location.href);

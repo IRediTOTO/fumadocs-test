@@ -6,12 +6,36 @@ icon: Terminal
 
 > 本文由 GLM-5-turbo 驱动的 CC 生成，内容基于项目源码与运行时记忆。
 
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
 ## 用法
+
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']} defaultValue="pnpm">
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx hpsetup@latest <key> [product] [options]
+HEROUI_KEY=<key> pnpm dlx hpsetup@latest [product] [options]
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx hpsetup@latest <key> [product] [options]
+HEROUI_KEY=<key> bunx hpsetup@latest [product] [options]
+```
+
+  </Tab>
+  <Tab value="npm">
 
 ```bash
 npx -y hpsetup@latest <key> [product] [options]
 HEROUI_KEY=<key> npx -y hpsetup@latest [product] [options]
 ```
+
+  </Tab>
+</Tabs>
 
 ## 位置参数
 

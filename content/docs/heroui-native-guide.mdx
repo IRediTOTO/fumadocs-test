@@ -131,9 +131,29 @@ npm run start
 
 停止 start，自动安装当前 expo 兼容版本：
 
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']}>
+  <Tab value="pnpm">
+
 ```bash
-npx expo install react-native react-native-worklets
+pnpm dlx expo install react-native react-native-worklets
 ```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx expo install react-native react-native-worklets
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npx -y expo install react-native react-native-worklets
+```
+
+  </Tab>
+</Tabs>
 
 ![修复依赖](/images/image-20260509232543541.png)
 

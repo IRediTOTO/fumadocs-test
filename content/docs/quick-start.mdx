@@ -6,8 +6,10 @@ icon: Rocket
 
 > 本文由人工撰写（md），AI 优化（mdx）。
 
+import { Callout } from 'fumadocs-ui/components/callout';
 import { HpInstallCommand } from '@/components/hp-install-command';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Suspense } from 'react';
 
 `hpsetup` 是一个 npm 包，用于替代官方的 `npx heroui-pro install` 安装流程。官方安装需要 GitHub OAuth 登录或 CI token，`hpsetup` 只需要一个 Key，即可在任何环境（本地开发、CI/CD、团队协作）中一键完成安装。
@@ -24,23 +26,131 @@ import { Suspense } from 'react';
 
 如果你还没有 HeroUI 项目，先创建一个：
 
-<Steps>
-<Step>
+<Tabs items={['p cli', '手动']}>
+  <Tab value="p cli">
 
-### 初始化项目
+确保已安装 [p cli](https://github.com/ru-yaka/p)，然后一键创建：
 
 ```bash
-npx heroui-cli@latest init my-heroui-app
+p new -- npx -y heroui-cli@latest init my-heroui-app
+```
+
+![p new 创建项目](/images/image-20260516115220406.png)
+
+<Callout type="info">
+
+`p new` 创建一个新项目，`--` 后接初始化命令（在 `~/.p/projects/`目录运行，方便之后快速打开、删除、标记项目）。
+
+</Callout>
+
+  </Tab>
+  <Tab value="手动">
+
+```bash
+pnpm dlx heroui-cli@latest init my-heroui-app
 cd my-heroui-app
 ```
 
+bun 用户用 `bunx`，npm 用户用 `npx -y`。
+
+  </Tab>
+</Tabs>
+
 用你喜欢的包管理器安装依赖：
+
+<Steps>
+<Step>
+
+### 安装依赖
+
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']} defaultValue="pnpm">
+  <Tab value="pnpm">
 
 ```bash
 pnpm install
 ```
 
-npm / yarn / bun 均可，hpsetup 会自动检测。
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun install
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npm install
+```
+
+  </Tab>
+</Tabs>
+
+hpsetup 会自动检测包管理器。
+
+<Callout type="warn">
+不推荐使用 Yarn。
+</Callout>
+
+</Step>
+<Step>
+
+### 验证运行
+
+启动开发服务器，确认项目可以正常运行：
+
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']}>
+  <Tab value="pnpm">
+
+```bash
+pnpm run dev
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun run dev
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npm run dev
+```
+
+  </Tab>
+</Tabs>
+
+![验证运行](/images/image-20260516120717449.png)
+
+确认页面正常显示后，按 `Ctrl+C` 停止开发服务器。
+
+</Step>
+<Step>
+
+### 初始化 Git（可选）
+
+建议在安装 HeroUI Pro 之前提交一次基线版本，方便回滚：
+
+<Tabs groupId="os" items={['windows', 'linux / macos']} defaultValue="windows">
+  <Tab value="windows">
+
+```bash
+git init; git add .; git commit -m "init: heroui project"
+```
+
+  </Tab>
+  <Tab value="linux / macos">
+
+```bash
+git init && git add . && git commit -m "init: heroui project"
+```
+
+  </Tab>
+</Tabs>
 
 </Step>
 <Step>
@@ -53,18 +163,13 @@ npm / yarn / bun 均可，hpsetup 会自动检测。
   <HpInstallCommand />
 </Suspense>
 
-你会看到类似输出：
+![安装 HeroUI Pro](/images/image-20260516123745093.png)
 
-```
-Querying latest version from npm...
-Adding @heroui-pro/react v1.0.0-beta.2 via pnpm...
-Downloading @heroui-pro/react v1.0.0-beta.2...
-Installing 8 peer dependencies...
-Resolving transitive dependencies...
-Done ✓
-```
+<Callout type="info">
 
 **原理**：hpsetup 先安装 `@heroui-pro/react` 的空壳包，然后从 CDN 下载真正的组件代码覆盖到 `node_modules` 中，最后补装所有依赖。最终结果与官方安装完全一致。
+
+</Callout>
 
 </Step>
 <Step>
@@ -73,11 +178,35 @@ Done ✓
 
 在你的全局 CSS 文件末尾新增一行：
 
-```css title="src/styles/globals.css"
-@import "tailwindcss";
-@import "@heroui/styles";
-@import "@heroui-pro/react/css";
+<Tabs groupId="framework" items={['next.js', 'vite', 'pages']} defaultValue="next.js">
+  <Tab value="next.js">
+
+```diff title="src/styles/globals.css"
+  @import "tailwindcss";
+  @import "@heroui/styles";
++ @import "@heroui-pro/react/css";
 ```
+
+  </Tab>
+  <Tab value="vite">
+
+```diff title="src/styles/globals.css"
+  @import "tailwindcss";
+  @import "@heroui/styles";
++ @import "@heroui-pro/react/css";
+```
+
+  </Tab>
+  <Tab value="pages">
+
+```diff title="styles/globals.css"
+  @import "tailwindcss";
+  @import "@heroui/styles";
++ @import "@heroui-pro/react/css";
+```
+
+  </Tab>
+</Tabs>
 
 </Step>
 <Step>
@@ -85,6 +214,9 @@ Done ✓
 ### 使用组件
 
 创建组件文件：
+
+<Tabs groupId="framework" items={['next.js', 'vite', 'pages']} defaultValue="next.js">
+  <Tab value="next.js">
 
 ```tsx title="components/area-chart-demo.tsx"
 "use client";
@@ -156,7 +288,159 @@ export default function AreaChartDemo() {
 }
 ```
 
+  </Tab>
+  <Tab value="vite">
+
+```tsx title="src/components/area-chart-demo.tsx"
+"use client";
+
+import {Card} from "@heroui/react";
+import {AreaChart, ChartTooltip} from "@heroui-pro/react";
+
+const data = [
+  {month: "Jan", revenue: 4200},
+  {month: "Feb", revenue: 5800},
+  {month: "Mar", revenue: 4900},
+  {month: "Apr", revenue: 7200},
+  {month: "May", revenue: 6100},
+  {month: "Jun", revenue: 8400},
+];
+
+export default function AreaChartDemo() {
+  return (
+    <Card className="w-full max-w-[520px] rounded-2xl">
+      <Card.Header>
+        <Card.Title className="text-base">Monthly Revenue</Card.Title>
+      </Card.Header>
+      <Card.Content>
+        <AreaChart data={data} height={200}>
+          <defs>
+            <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="var(--chart-3)" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="var(--chart-3)" stopOpacity={0.02} />
+            </linearGradient>
+          </defs>
+          <AreaChart.Grid vertical={false} />
+          <AreaChart.XAxis dataKey="month" tickMargin={8} />
+          <AreaChart.YAxis
+            tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+            width={40}
+          />
+          <AreaChart.Area
+            dataKey="revenue"
+            dot={false}
+            fill="url(#fill)"
+            name="Revenue"
+            stroke="var(--chart-3)"
+            strokeWidth={2}
+            type="monotone"
+          />
+          <AreaChart.Tooltip
+            content={({active, label, payload}) => {
+              if (!active || !payload?.length) return null;
+              return (
+                <ChartTooltip>
+                  <ChartTooltip.Header>{label}</ChartTooltip.Header>
+                  {payload.map((entry) => (
+                    <ChartTooltip.Item key={String(entry.dataKey)}>
+                      <ChartTooltip.Indicator color={entry.color ?? entry.stroke} />
+                      <ChartTooltip.Label>{entry.name}</ChartTooltip.Label>
+                      <ChartTooltip.Value>
+                        ${Number(entry.value).toLocaleString()}
+                      </ChartTooltip.Value>
+                    </ChartTooltip.Item>
+                  ))}
+                </ChartTooltip>
+              );
+            }}
+          />
+        </AreaChart>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+  </Tab>
+  <Tab value="pages">
+
+```tsx title="components/area-chart-demo.tsx"
+"use client";
+
+import {Card} from "@heroui/react";
+import {AreaChart, ChartTooltip} from "@heroui-pro/react";
+
+const data = [
+  {month: "Jan", revenue: 4200},
+  {month: "Feb", revenue: 5800},
+  {month: "Mar", revenue: 4900},
+  {month: "Apr", revenue: 7200},
+  {month: "May", revenue: 6100},
+  {month: "Jun", revenue: 8400},
+];
+
+export default function AreaChartDemo() {
+  return (
+    <Card className="w-full max-w-[520px] rounded-2xl">
+      <Card.Header>
+        <Card.Title className="text-base">Monthly Revenue</Card.Title>
+      </Card.Header>
+      <Card.Content>
+        <AreaChart data={data} height={200}>
+          <defs>
+            <linearGradient id="fill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="var(--chart-3)" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="var(--chart-3)" stopOpacity={0.02} />
+            </linearGradient>
+          </defs>
+          <AreaChart.Grid vertical={false} />
+          <AreaChart.XAxis dataKey="month" tickMargin={8} />
+          <AreaChart.YAxis
+            tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
+            width={40}
+          />
+          <AreaChart.Area
+            dataKey="revenue"
+            dot={false}
+            fill="url(#fill)"
+            name="Revenue"
+            stroke="var(--chart-3)"
+            strokeWidth={2}
+            type="monotone"
+          />
+          <AreaChart.Tooltip
+            content={({active, label, payload}) => {
+              if (!active || !payload?.length) return null;
+              return (
+                <ChartTooltip>
+                  <ChartTooltip.Header>{label}</ChartTooltip.Header>
+                  {payload.map((entry) => (
+                    <ChartTooltip.Item key={String(entry.dataKey)}>
+                      <ChartTooltip.Indicator color={entry.color ?? entry.stroke} />
+                      <ChartTooltip.Label>{entry.name}</ChartTooltip.Label>
+                      <ChartTooltip.Value>
+                        ${Number(entry.value).toLocaleString()}
+                      </ChartTooltip.Value>
+                    </ChartTooltip.Item>
+                  ))}
+                </ChartTooltip>
+              );
+            }}
+          />
+        </AreaChart>
+      </Card.Content>
+    </Card>
+  );
+}
+```
+
+  </Tab>
+</Tabs>
+
 在页面中引入：
+
+<Tabs groupId="framework" items={['next.js', 'vite', 'pages']} defaultValue="next.js">
+  <Tab value="next.js">
 
 ```tsx title="app/page.tsx"
 import AreaChartDemo from "@/components/area-chart-demo";
@@ -166,16 +450,62 @@ export default function Page() {
 }
 ```
 
+  </Tab>
+  <Tab value="vite">
+
+```tsx title="src/pages/index.tsx"
+import AreaChartDemo from "../components/area-chart-demo";
+
+export default function Page() {
+  return <AreaChartDemo />;
+}
+```
+
+  </Tab>
+  <Tab value="pages">
+
+```tsx title="pages/index.tsx"
+import AreaChartDemo from "../components/area-chart-demo";
+
+export default function Page() {
+  return <AreaChartDemo />;
+}
+```
+
+  </Tab>
+</Tabs>
+
 </Step>
 <Step>
 
 ### 启动预览
 
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']}>
+  <Tab value="pnpm">
+
 ```bash
 pnpm dev
 ```
 
-打开浏览器访问 `http://localhost:5173` 即可看到效果。
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun dev
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npm run dev
+```
+
+  </Tab>
+</Tabs>
+
+
+![启动预览](/images/image-20260516124207387.png)
 
 </Step>
 </Steps>
@@ -184,4 +514,8 @@ pnpm dev
 
 下载的 tarball 缓存在 `~/.heroui/cache/<product>/<version>/`，相同版本不会重复下载。
 
+<Callout type="info">
+
 使用 `--no-cache` 可强制从源站拉取最新包（受每日频率限制）。
+
+</Callout>

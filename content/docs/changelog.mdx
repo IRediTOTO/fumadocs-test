@@ -1,0 +1,32 @@
+---
+title: 更新日志
+description: 文档站变更记录
+icon: History
+---
+
+## 2026-05-16
+
+### 快速开始文档重构
+
+- 新增"验证运行"步骤，安装依赖后先确认项目能正常启动
+- 新增"初始化 Git"步骤（可选），安装 Pro 前提交基线版本，命令用 Tabs 展示
+- "引入样式"和"使用组件"步骤按框架分 Tabs（next.js / vite / pages），组件文件路径也按框架区分
+- CSS 引入改为 `diff` 代码块，直观展示新增行
+- 安装 HeroUI Pro 输出从纯文本替换为截图
+- "启动预览"步骤增加结果截图
+- 所有 Tabs 标签统一使用小写
+- 下载 3 张新截图到 `public/images/`
+
+### 凭据链接即时生效
+
+- 修复通过 URL 参数（`?hp_key=xxx&personal_token=xxx`）传入凭据后，凭据配置卡片不会立即显示"已就绪"状态的问题
+- 原因：同一页面内 `localStorage.setItem` 不会触发 `storage` 事件，`useSyncExternalStore` 无法感知变化
+- 修复：写入 localStorage 后手动 dispatch `storage` 事件，与手动保存凭据的行为保持一致
+
+### 文档体验优化
+
+- 包管理器命令统一改为 Tabs 展示（pnpm / bun / npm），同页面内通过 `groupId` 联动
+- 所有 `npx` 命令按包管理器区分（`pnpm dlx` / `bunx` / `npx`），不再硬编码 npm 写法
+- `npx` 命令添加 `-y` 标志跳过手动确认（`pnpm dlx` 和 `bunx` 无需此标志）
+- 适合提示信息的场景改用 Callout 组件（warn / info），提升可读性
+- 不推荐使用 Yarn 的说明以 Callout warn 形式展示

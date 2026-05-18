@@ -139,13 +139,13 @@ export function CredentialConfig() {
           <div className="flex items-center gap-1.5">
             {hpKey && (
               <span className="inline-flex items-center gap-1 rounded-md border border-fd-border bg-fd-background px-2 py-px text-[11px] leading-4 font-medium text-fd-foreground/70">
-                <span className="size-1 rounded-full bg-emerald-500" />
+                <span className="size-1 rounded-full bg-emerald-500 animate-pulse" />
                 HP Key
               </span>
             )}
             {personalToken && (
               <span className="inline-flex items-center gap-1 rounded-md border border-fd-border bg-fd-background px-2 py-px text-[11px] leading-4 font-medium text-fd-foreground/70">
-                <span className="size-1 rounded-full bg-emerald-500" />
+                <span className="size-1 rounded-full bg-emerald-500 animate-pulse" />
                 Personal Token
               </span>
             )}
