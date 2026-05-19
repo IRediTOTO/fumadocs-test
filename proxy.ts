@@ -1,6 +1,6 @@
 import { createI18nMiddleware } from "fumadocs-core/i18n/middleware";
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextFetchEvent, type NextRequest, NextResponse } from "next/server";
 import { i18n } from "@/lib/i18n";
 import { docsContentRoute, docsRoute } from "@/lib/shared";
 
@@ -17,7 +17,7 @@ const { rewrite: rewriteSuffix } = rewritePath(
 );
 const i18nMiddleware = createI18nMiddleware(i18n);
 
-export default function proxy(request: NextRequest) {
+export default function proxy(request: NextRequest, event: NextFetchEvent) {
   const host = request.headers.get("host") ?? "";
 
   if (host === OLD_DOMAIN) {
@@ -54,7 +54,7 @@ export default function proxy(request: NextRequest) {
     }
   }
 
-  return i18nMiddleware(request);
+  return i18nMiddleware(request, event);
 }
 
 export const config = {
