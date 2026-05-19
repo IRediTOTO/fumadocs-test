@@ -1,0 +1,140 @@
+---
+title: Quick Start
+description: Install the HeroUI Pro component library with hpsetup.
+icon: Rocket
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { HpInstallCommand } from '@/components/hp-install-command';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Suspense } from 'react';
+
+`hpsetup` is an npm package that replaces the official `npx heroui-pro install` flow. The official installer requires GitHub OAuth or a CI token; `hpsetup` only needs a key and works in local development, CI/CD, and team workflows.
+
+The installed result is the same as the official CLI: component code, style files, and dependencies are written into your project.
+
+<Callout type="info">
+  Prepare your project first. The examples below assume an existing Next.js, Vite, or Pages Router app.
+</Callout>
+
+<Steps>
+<Step>
+
+### Install dependencies
+
+<Suspense>
+  <HpInstallCommand />
+</Suspense>
+
+</Step>
+<Step>
+
+### Verify the app
+
+Run your normal dev command before changing UI code:
+
+```bash
+pnpm dev
+```
+
+Fix existing project errors first. This makes it easier to tell whether later issues came from the Pro installation.
+
+</Step>
+<Step>
+
+### Commit a baseline
+
+This step is optional but recommended before installing generated component files.
+
+<Tabs groupId="pkg" items={['pnpm', 'npm', 'bun']} defaultValue="pnpm">
+  <Tab value="pnpm">
+
+```bash
+git add .
+git commit -m "chore: baseline before HeroUI Pro"
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+git add .
+git commit -m "chore: baseline before HeroUI Pro"
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+git add .
+git commit -m "chore: baseline before HeroUI Pro"
+```
+
+  </Tab>
+</Tabs>
+
+</Step>
+<Step>
+
+### Import styles
+
+Add the generated Pro styles to your global CSS.
+
+<Tabs groupId="framework" items={['next.js', 'vite', 'pages']} defaultValue="next.js">
+  <Tab value="next.js">
+
+```diff
+  @import "tailwindcss";
++ @import "./components/heroui-pro/styles.css";
+```
+
+  </Tab>
+  <Tab value="vite">
+
+```diff
+  @import "tailwindcss";
++ @import "./components/heroui-pro/styles.css";
+```
+
+  </Tab>
+  <Tab value="pages">
+
+```diff
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
++ @import "../components/heroui-pro/styles.css";
+```
+
+  </Tab>
+</Tabs>
+
+</Step>
+<Step>
+
+### Use a component
+
+Import a Pro component from the generated files and render it in a page.
+
+```tsx
+import { Button } from '@/components/heroui-pro/button';
+
+export default function Page() {
+  return <Button>HeroUI Pro</Button>;
+}
+```
+
+</Step>
+<Step>
+
+### Start preview
+
+```bash
+pnpm dev
+```
+
+Open the local URL shown by Next.js or Vite and verify the component renders with the expected styles.
+
+</Step>
+</Steps>

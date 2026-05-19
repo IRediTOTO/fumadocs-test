@@ -1,0 +1,6 @@
+{
+  "architecture": "Architecture Overview",
+  "cf-worker": "Cloudflare Worker",
+  "admin-api": "Admin API",
+  "relay": "Relay Service"
+}

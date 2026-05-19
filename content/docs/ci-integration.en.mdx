@@ -1,0 +1,51 @@
+---
+title: CI/CD Integration
+description: Use hpsetup in GitHub Actions, Vercel, and other CI environments.
+icon: GitBranch
+---
+
+## Basic usage
+
+In CI, `hpsetup` detects the `CI` environment variable and runs in non-interactive mode with updates enabled. One command is enough:
+
+```bash
+HEROUI_KEY=hp_xxxx npx -y hpsetup@latest
+```
+
+You do not need `--update`, `--auto`, or extra flags in a normal CI job.
+
+## GitHub Actions
+
+```yaml
+name: Install HeroUI Pro
+
+on:
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: HEROUI_KEY="${{ secrets.HEROUI_KEY }}" pnpm dlx hpsetup@latest
+```
+
+## Vercel
+
+Add `HEROUI_KEY` in Project Settings, then run the installer before the build if your generated Pro files are not committed:
+
+```bash
+HEROUI_KEY=$HEROUI_KEY npx -y hpsetup@latest && pnpm build
+```
+
+## Recommended practice
+
+- Store `HEROUI_KEY` as a secret, not in source code.
+- Commit generated files when your deployment environment should not download packages during build.
+- Run the installer from the workspace root for monorepos unless a specific app needs `--cwd`.

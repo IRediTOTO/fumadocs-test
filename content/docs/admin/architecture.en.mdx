@@ -1,0 +1,33 @@
+---
+title: Architecture Overview
+description: End-to-end hpsetup architecture from CLI to CF Worker, Relay, and upstream CDN.
+---
+
+## Request flow
+
+```txt
+User CLI (hpsetup)
+  | HTTPS ?key=hp_xxxx
+  v
+CF Worker (hpsetup-cdn.932324.xyz)
+  | user auth + R2 cache + global rate limit + Admin API
+  | HTTP x-relay-secret
+  v
+Relay (relay.932324.xyz:8901)
+  | official challenge flow
+  v
+Upstream HeroUI Pro CDN
+```
+
+## Responsibilities
+
+| Layer | Responsibility |
+| --- | --- |
+| CLI | Resolve package requests and install generated files. |
+| CF Worker | Authenticate keys, cache tarballs, enforce rate limits, and expose Admin API. |
+| Relay | Complete upstream challenge flow and fetch tarballs. |
+| R2 | Store reusable tarball cache. |
+
+## Failure handling
+
+The worker should prefer cached artifacts when available and only call Relay when a cache miss requires upstream access.

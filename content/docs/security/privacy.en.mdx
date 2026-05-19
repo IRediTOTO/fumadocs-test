@@ -1,0 +1,28 @@
+---
+title: Privacy and Data Collection
+description: Data collection behavior of hpsetup and its dependencies.
+icon: Shield
+---
+
+## hpsetup itself
+
+The `hpsetup` CLI does not actively collect user data. It is an installation tool whose job is to download and install HeroUI Pro components.
+
+External communication made by `hpsetup`:
+
+| Target | Request | Data sent |
+| --- | --- | --- |
+| `hpsetup-cdn.932324.xyz` | GET `/api/tarball/...` | API key |
+| `registry.npmjs.org` | GET `/{package}/latest` | No authentication data |
+
+## API keys
+
+The API key is used to authorize downloads. Treat it as a secret:
+
+- Do not commit it to source code.
+- Store it in CI or deployment secrets.
+- Rotate it if it is exposed.
+
+## Local files
+
+Generated component files are written to your project directory. Review them with Git before committing.

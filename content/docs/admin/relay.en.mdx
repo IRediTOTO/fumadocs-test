@@ -1,0 +1,23 @@
+---
+title: Relay Service
+description: Relay server deployment, challenge flow, and backup mechanism.
+---
+
+The Relay service sits between the CF Worker and the upstream CDN. It simulates the official CLI flow to fetch package tarballs.
+
+## Deploy
+
+Relay runs as a systemd service:
+
+```bash
+sudo systemctl restart mcp-relay
+sudo systemctl status mcp-relay
+```
+
+## Authentication
+
+The CF Worker calls Relay with `x-relay-secret`. Relay should reject requests without the expected secret.
+
+## Backup behavior
+
+Keep Relay deploys reproducible and monitor service health. When cache is warm, the worker can continue serving cached tarballs without calling Relay.

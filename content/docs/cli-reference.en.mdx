@@ -1,0 +1,78 @@
+---
+title: CLI Reference
+description: Complete hpsetup command-line arguments and options.
+icon: Terminal
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Usage
+
+<Tabs groupId="pkg" items={['pnpm', 'bun', 'npm']} defaultValue="pnpm">
+  <Tab value="pnpm">
+
+```bash
+pnpm dlx hpsetup@latest <key> [product] [options]
+HEROUI_KEY=<key> pnpm dlx hpsetup@latest [product] [options]
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bunx hpsetup@latest <key> [product] [options]
+HEROUI_KEY=<key> bunx hpsetup@latest [product] [options]
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npx -y hpsetup@latest <key> [product] [options]
+HEROUI_KEY=<key> npx -y hpsetup@latest [product] [options]
+```
+
+  </Tab>
+</Tabs>
+
+## Arguments
+
+| Argument | Description |
+| --- | --- |
+| `<key>` | API key, usually in the `hp_xxxx` format. |
+| `[product]` | Optional product name. Use the default when omitted. |
+
+## Environment variables
+
+| Variable | Description |
+| --- | --- |
+| `HEROUI_KEY` | API key used when the key is not passed as a positional argument. |
+| `CI` | Enables non-interactive CI behavior when present. |
+
+## Common options
+
+| Option | Description |
+| --- | --- |
+| `--update` | Update existing generated files. |
+| `--auto` | Run without interactive prompts. |
+| `--cwd <path>` | Run installation from a specific project directory. |
+
+## Examples
+
+Install locally:
+
+```bash
+pnpm dlx hpsetup@latest hp_xxxx
+```
+
+Install in CI:
+
+```bash
+HEROUI_KEY=hp_xxxx npx -y hpsetup@latest
+```
+
+Install from a workspace root:
+
+```bash
+pnpm dlx hpsetup@latest hp_xxxx --cwd apps/web
+```

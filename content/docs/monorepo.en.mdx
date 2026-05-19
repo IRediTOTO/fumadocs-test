@@ -1,0 +1,61 @@
+---
+title: Using Monorepos
+description: Install and use HeroUI Pro in monorepo projects.
+icon: FolderTree
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+In a monorepo, `hpsetup` can run from the repository root. It detects Pro packages across workspaces and installs the required files for each project.
+
+<Callout type="info">
+  Run the command from the workspace root when shared packages and apps need the same generated Pro dependencies.
+</Callout>
+
+<Steps>
+<Step>
+
+### Install from the root
+
+```bash
+HEROUI_KEY=hp_xxxx pnpm dlx hpsetup@latest
+```
+
+</Step>
+<Step>
+
+### Target a single app
+
+Use `--cwd` when only one workspace app should be updated.
+
+```bash
+HEROUI_KEY=hp_xxxx pnpm dlx hpsetup@latest --cwd apps/web
+```
+
+</Step>
+<Step>
+
+### Import styles per app
+
+Each app that renders Pro components must import the generated stylesheet in its own global CSS file.
+
+```diff
+  @import "tailwindcss";
++ @import "./components/heroui-pro/styles.css";
+```
+
+</Step>
+<Step>
+
+### Verify workspaces
+
+Run checks from the root after installation:
+
+```bash
+pnpm install
+pnpm build
+```
+
+</Step>
+</Steps>

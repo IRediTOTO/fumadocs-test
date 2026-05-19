@@ -1,0 +1,50 @@
+---
+title: Native EAS Build
+description: Build an Android package for HeroUI Native Pro with EAS Build.
+icon: Hammer
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+<Callout type="info">
+  Complete [HeroUI Native Pro](./heroui-native-pro-guide.mdx) before configuring EAS Build.
+</Callout>
+
+<Steps>
+<Step>
+
+### Configure a preinstall script
+
+Use a preinstall step so the Pro package is available during EAS dependency installation.
+
+```json
+{
+  "scripts": {
+    "eas-build-pre-install": "HEROUI_KEY=$HEROUI_KEY npx -y hpsetup@latest"
+  }
+}
+```
+
+</Step>
+<Step>
+
+### Add the secret
+
+Store `HEROUI_KEY` in EAS secrets:
+
+```bash
+eas secret:create --name HEROUI_KEY --value hp_xxxx
+```
+
+</Step>
+<Step>
+
+### Build Android
+
+```bash
+eas build --platform android
+```
+
+</Step>
+</Steps>

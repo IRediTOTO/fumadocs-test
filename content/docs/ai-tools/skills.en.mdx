@@ -1,0 +1,41 @@
+---
+title: "Agent Skills"
+description: "Install HeroUI Pro skill packs for AI tools so agents can write higher-quality code from the start."
+icon: "Sparkles"
+---
+
+import { Callout } from "fumadocs-ui/components/callout";
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import { SkillsInstallCommand } from '@/components/skills-install-command';
+import { Suspense } from 'react';
+
+HeroUI Pro provides Skills: local knowledge packs that teach AI agents how to use Pro components correctly. They include component patterns, API conventions, and design principles.
+
+Skills are cached locally, available offline, and loaded when the agent starts. They work best together with [Local MCP](./mcp/local.mdx), which provides live component data.
+
+<Callout type="info">
+  Install Skills in the same environment where your AI coding agent runs.
+</Callout>
+
+## Install
+
+<Suspense>
+  <SkillsInstallCommand />
+</Suspense>
+
+## Usage
+
+After installation, restart your agent session so it can discover the new skill files.
+
+<Tabs items={['Claude Code', 'Codex']} defaultValue="Claude Code">
+  <Tab value="Claude Code">
+
+Ask the agent to use the HeroUI Pro skill when building or refactoring UI.
+
+  </Tab>
+  <Tab value="Codex">
+
+Ask Codex to follow the installed HeroUI Pro skill for component usage and project conventions.
+
+  </Tab>
+</Tabs>

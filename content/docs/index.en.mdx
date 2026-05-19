@@ -1,0 +1,42 @@
+---
+title: What is this
+description: "Use HeroUI Pro v3 through a proxy: hpsetup installs packages, while MCP and Skills help AI-assisted development."
+icon: Info
+---
+
+import { CredentialConfig } from '@/components/credential-config';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+CollectUI helps teams use HeroUI Pro v3 in local projects, CI/CD, and AI coding workflows.
+
+It is not an account-sharing or official key-sharing service. Instead, it uses a proxy-based workflow:
+
+- During Pro package installation, the worker downloads the latest tarball and wires packages such as `@heroui-pro/react` and `heroui-native-pro` into your project.
+- During MCP initialization and tool calls, the proxy forwards requests with the upstream token and returns the upstream response.
+- For AI agents, local MCP and Skills provide component knowledge and reusable implementation guidance.
+
+<CredentialConfig />
+
+## Start here
+
+<Cards>
+  <Card title="Quick Start" href="/en/docs/quick-start" description="Install HeroUI Pro packages with hpsetup." />
+  <Card title="CLI Reference" href="/en/docs/cli-reference" description="Commands, arguments, and environment variables." />
+  <Card title="CI/CD Integration" href="/en/docs/ci-integration" description="Use hpsetup in GitHub Actions, Vercel, and other CI systems." />
+  <Card title="Monorepo" href="/en/docs/monorepo" description="Install and use HeroUI Pro in workspace projects." />
+</Cards>
+
+## AI tools
+
+<Cards>
+  <Card title="Local MCP (hpmcp)" href="/en/docs/ai-tools/mcp/local" description="Local proxy with automatic cache and offline support." />
+  <Card title="Agent Skills" href="/en/docs/ai-tools/skills" description="Install HeroUI Pro skill packs for AI coding agents." />
+</Cards>
+
+## Native
+
+<Cards>
+  <Card title="HeroUI Native" href="/en/docs/heroui-native-guide" description="Initialize a HeroUI Native project." />
+  <Card title="HeroUI Native Pro" href="/en/docs/heroui-native-pro-guide" description="Install and configure heroui-native-pro." />
+  <Card title="Native EAS Build" href="/en/docs/native-eas-build" description="Build an Android package with EAS Build." />
+</Cards>

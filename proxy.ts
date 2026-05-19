@@ -1,5 +1,7 @@
+import { createI18nMiddleware } from "fumadocs-core/i18n/middleware";
 import { isMarkdownPreferred, rewritePath } from "fumadocs-core/negotiation";
 import { type NextRequest, NextResponse } from "next/server";
+import { i18n } from "@/lib/i18n";
 import { docsContentRoute, docsRoute } from "@/lib/shared";
 
 const OLD_DOMAIN = "collectui.vercel.app";
@@ -13,6 +15,7 @@ const { rewrite: rewriteSuffix } = rewritePath(
   `${docsRoute}{/*path}.mdx`,
   `${docsContentRoute}{/*path}/content.md`,
 );
+const i18nMiddleware = createI18nMiddleware(i18n);
 
 export default function proxy(request: NextRequest) {
   const host = request.headers.get("host") ?? "";
@@ -24,7 +27,7 @@ export default function proxy(request: NextRequest) {
     url.port = "";
 
     const noticeUrl = request.nextUrl.clone();
-    noticeUrl.pathname = "/migrate";
+    noticeUrl.pathname = "/zh/migrate";
 
     const response = NextResponse.rewrite(noticeUrl);
     response.headers.set("X-New-Location", url.toString());
@@ -51,5 +54,9 @@ export default function proxy(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  return i18nMiddleware(request);
 }
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|logo.png).*)'],
+};

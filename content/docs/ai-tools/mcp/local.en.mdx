@@ -1,0 +1,13 @@
+---
+title: "Local MCP (hpmcp)"
+description: "HeroUI Pro MCP local proxy with automatic cache, offline support, and zero configuration."
+---
+
+import { HpmcpPage } from "@/components/hpmcp-page";
+import { Suspense } from "react";
+
+`hpmcp` is a local proxy for the HeroUI Pro MCP server. It caches upstream responses automatically, so common tool calls remain available when offline.
+
+<Suspense>
+  <HpmcpPage />
+</Suspense>

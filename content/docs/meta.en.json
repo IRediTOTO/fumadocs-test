@@ -1,0 +1,20 @@
+{
+  "title": "Docs",
+  "icon": "BookOpen",
+  "pages": [
+    "index",
+    "quick-start",
+    "monorepo",
+    "cli-reference",
+    "ci-integration",
+    "changelog",
+    "---Guides---",
+    "heroui-native-guide",
+    "heroui-native-pro-guide",
+    "native-eas-build",
+    "---AI Tools---",
+    "...ai-tools",
+    "---Security---",
+    "...security"
+  ]
+}

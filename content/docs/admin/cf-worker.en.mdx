@@ -1,0 +1,28 @@
+---
+title: Cloudflare Worker
+description: CF Worker deployment, environment variables, cache, and rate limiting.
+---
+
+## Deploy
+
+```bash
+cd cf-worker
+wrangler deploy
+```
+
+## Configuration
+
+`wrangler.toml` contains bindings for routes, R2 buckets, and worker settings. Secrets should be configured with `wrangler secret`.
+
+```bash
+wrangler secret put ADMIN_SECRET
+wrangler secret put RELAY_SECRET
+```
+
+## Cache
+
+The worker stores package tarballs in R2. Cache hits avoid Relay calls and improve installation speed.
+
+## Rate limiting
+
+Rate limits protect upstream resources and prevent a single key from consuming the service. Admin API operations can list, create, or disable keys. See [Admin API](./admin-api.mdx).

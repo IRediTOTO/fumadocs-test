@@ -1,0 +1,25 @@
+---
+title: Security Audit Report
+description: Security audit summary for the heroui-pro npm packages.
+icon: ShieldCheck
+---
+
+## Audit scope
+
+| Package | Version | Type |
+| --- | --- | --- |
+| `heroui-pro` | 1.0.0-beta.9 | CLI tool plus auth, CDN, and cache helpers |
+| `@heroui-pro/react` | 1.0.0-beta.3 | React Pro component package |
+| `heroui-native-pro` | 1.0.0-beta.3 | React Native Pro component package |
+
+## Core conclusion
+
+The installer is designed to fetch package tarballs and write generated files into the local project. The main operational risk is API key exposure, so keys must be handled as secrets.
+
+## Recommendations
+
+- Use scoped keys for teams and CI environments.
+- Store keys in secret managers.
+- Review generated files before committing.
+- Keep the installer package updated.
+- Rotate keys after personnel or infrastructure changes.

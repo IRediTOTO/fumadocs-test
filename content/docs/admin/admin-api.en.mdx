@@ -1,0 +1,22 @@
+---
+title: Admin API
+description: API key management endpoints for creating, bulk creating, disabling, and listing keys.
+---
+
+Admin API endpoints live under `/admin`. Every request must include Bearer token authentication.
+
+## Authentication
+
+```http
+Authorization: Bearer <ADMIN_SECRET>
+```
+
+Configure `ADMIN_SECRET` with:
+
+```bash
+wrangler secret put ADMIN_SECRET
+```
+
+## Endpoints
+
+<APIPage />

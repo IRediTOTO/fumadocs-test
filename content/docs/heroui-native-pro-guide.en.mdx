@@ -1,0 +1,63 @@
+---
+title: HeroUI Native Pro
+description: Install and configure heroui-native-pro in a HeroUI Native project.
+icon: Star
+---
+
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Suspense } from 'react';
+import { HpInstallCommand } from '@/components/hp-install-command';
+
+<Callout type="info">
+  This guide assumes you have completed [HeroUI Native](./heroui-native-guide.mdx).
+</Callout>
+
+<Steps>
+<Step>
+
+### Install Pro packages
+
+Run `hpsetup` in the native project.
+
+<Suspense>
+  <HpInstallCommand />
+</Suspense>
+
+</Step>
+<Step>
+
+### Confirm generated files
+
+Verify that the generated `heroui-native-pro` files and package entries were added to the project.
+
+```bash
+git status
+```
+
+</Step>
+<Step>
+
+### Use a Pro component
+
+Import the generated component from your project and render it in an Expo screen.
+
+```tsx
+import { Button } from 'heroui-native-pro';
+
+export default function Screen() {
+  return <Button>HeroUI Native Pro</Button>;
+}
+```
+
+</Step>
+<Step>
+
+### Start preview
+
+```bash
+pnpm start
+```
+
+</Step>
+</Steps>

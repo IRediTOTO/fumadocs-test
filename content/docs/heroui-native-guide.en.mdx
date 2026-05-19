@@ -1,0 +1,63 @@
+---
+title: HeroUI Native
+description: Initialize a HeroUI Native project.
+icon: Smartphone
+---
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Clone [heroui-native-example](https://github.com/heroui-inc/heroui-native-example), install dependencies, and start the app.
+
+<Steps>
+<Step>
+
+### Clone the project
+
+```bash
+git clone https://github.com/heroui-inc/heroui-native-example.git
+cd heroui-native-example
+```
+
+</Step>
+<Step>
+
+### Install dependencies
+
+<Tabs groupId="pkg" items={['pnpm', 'npm', 'bun']} defaultValue="pnpm">
+  <Tab value="pnpm">
+
+```bash
+pnpm install
+```
+
+  </Tab>
+  <Tab value="npm">
+
+```bash
+npm install
+```
+
+  </Tab>
+  <Tab value="bun">
+
+```bash
+bun install
+```
+
+  </Tab>
+</Tabs>
+
+</Step>
+<Step>
+
+### Start the app
+
+```bash
+pnpm start
+```
+
+Use the Expo output to open Android, iOS, or web preview.
+
+</Step>
+</Steps>
